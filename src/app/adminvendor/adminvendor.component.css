@@ -1,0 +1,81 @@
+.example-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  .mat-sidenav {
+    width: 200px;
+    background-color: cornflowerblue;
+  }
+  .BtnCustom{
+      width:170px;
+      position: fixed;
+  }
+  .logopart{
+    margin-left: 57px;
+  }
+  .topnav {
+    overflow: hidden;
+    background-color:#e4e3e3;
+    color: #f2f2f2;
+    padding: 1px 56px;
+    
+  }
+  .userIcon{
+    float:right;
+    padding: 10px;
+    color: black;
+    cursor: pointer;
+  }
+  table {
+    width: 100%;
+  }
+  .BtnCustomAdd{
+      float: right;
+      margin-right: 80px;
+      margin-top: 13px;
+  }
+  .form-row{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-bottom: 1.4rem !important;
+  }
+  .form-control {
+    display: block;
+    width: 50%;
+    padding: 9px  28px;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    margin-left: 30px;
+}
+.labelmove{
+    margin-left: 10px;
+    padding: 22px;
+}
+.error-required{	
+  width: 100%;	
+  display: flex;	
+  margin-left: 32px;
+  font-size: 11px;	 color: #d81f2c;
+}	
+  
+  /* .topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  } */
+  

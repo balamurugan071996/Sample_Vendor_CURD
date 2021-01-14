@@ -1,0 +1,140 @@
+<mat-sidenav-container fullscreen>
+    <mat-sidenav #sidenav mode="side" class="example-sidenav" opened="true">
+        <div class="logopart">LOGO</div>
+        <mat-nav-list>
+            <mat-list-item>
+                <button mat-raised-button class="BtnCustom">
+                    <i class="fa fa-bank" style="padding:10px"></i>Home</button>
+            </mat-list-item>
+
+            <mat-list-item>
+
+                <button mat-raised-button class="BtnCustom">
+                    <i class="fa fa-user-o" style="padding:10px"></i>Employess
+                </button>
+            </mat-list-item>
+
+            <mat-list-item>
+                <button mat-raised-button class="BtnCustom">
+                    <i class="fa fa-users" style="padding:10px"></i>Vendors</button>
+            </mat-list-item>
+
+            <mat-list-item>
+                <button mat-raised-button class="BtnCustom">
+                    <i class="fa fa-wrench" style="padding:10px"></i>Setting</button>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <div class="example-sidenav-content">
+        <div class="topnav">
+            <!-- <mat-form-field appearance="outline">
+                <mat-label>Search Vendor</mat-label>
+                <input matInput placeholder="Search Vendor">
+            </mat-form-field> -->
+            <i class="fa fa-user-o" class="userIcon"></i>
+            <div style="color: black;float:right;padding: 10px">Organization ABC</div>
+        </div>
+        <div class="BtnCustomAdd" style="margin-bottom: 18px" *ngIf="!showform">
+            <button mat-raised-button (click)="CreatNewVendor()"><i class="fa fa-plus" style="padding: 5px"></i>Add
+                Vendor</button>
+        </div>
+        <div class="BtnCustomAdd" *ngIf="showform">
+            <button mat-raised-button (click)="Cancel()">Cancel</button>
+        </div>
+        <div class="BtnCustomAdd" *ngIf="showform && !EditMode">
+            <button mat-raised-button (click)="AddVendor()">Save Data</button>
+        </div>
+        <div class="BtnCustomAdd" *ngIf="showform && EditMode">
+            <button mat-raised-button style="position: absolute" (click)="UpdateVendor()">Update</button>
+        </div>
+        <div class="BtnCustomAdd" *ngIf="showform && EditMode">
+            <button mat-raised-button style="position: absolute" (click)="DeleteVendor()">Delete</button>
+        </div>
+
+        <table *ngIf="!showform" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <ng-container matColumnDef="txt_VendorName">
+                <th mat-header-cell *matHeaderCellDef> Vendor Name </th>
+                <td mat-cell *matCellDef="let row"> {{row.txt_VendorName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="select_Type">
+                <th mat-header-cell *matHeaderCellDef> Type </th>
+                <td mat-cell *matCellDef="let row"> {{row.select_Type}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="txt_Email">
+                <th mat-header-cell *matHeaderCellDef> Contact Email </th>
+                <td mat-cell *matCellDef="let row"> {{row.txt_Email}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="txt_Weburl">
+                <th mat-header-cell *matHeaderCellDef> Website URL</th>
+                <td mat-cell *matCellDef="let row"> {{row.txt_Weburl}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let row;let i=index"
+                    style="color: blue;text-decoration: underline;cursor: pointer;" (click)="EditVendorRow(row,i)">
+                    Action
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <div *ngIf="showform">
+            <form [formGroup]="VendorForm">
+                <div>
+                    <div class="form-group col-12 col-md-6">
+                        <label class="labelmove">Vendor Name</label>
+                        <input placeholder="Vendor Name" class="form-control" formControlName="txt_VendorName">
+                        <div class="error-required"
+                            *ngIf="VendorForm.controls.txt_VendorName.touched && VendorForm.controls.txt_VendorName.errors">
+                            <mat-error *ngIf="VendorForm.controls.txt_VendorName.errors.required">
+                                Vendor Name Required
+                            </mat-error>
+                        </div>
+                    </div>
+                    <div class="form-group col-12 col-md-6">
+                        <label class="labelmove">Type</label>
+                        <input placeholder="Type" class="form-control" formControlName="select_Type">
+                        <div class="error-required"
+                            *ngIf="VendorForm.controls.select_Type.touched && VendorForm.controls.select_Type.errors">
+                            <mat-error *ngIf="VendorForm.controls.select_Type.errors.required">
+                                Type Required
+                            </mat-error>
+                        </div>
+                    </div>
+                    <div class="form-group col-12 col-md-6">
+                        <label class="labelmove">Email</label>
+                        <input placeholder="Email" class="form-control" formControlName="txt_Email">
+                        <div class="error-required"
+                            *ngIf="VendorForm.controls.txt_Email.touched && VendorForm.controls.txt_Email.errors">
+                            <mat-error class="float-right"
+                                *ngIf="VendorForm.controls.txt_Email.errors.pattern && !VendorForm.controls.txt_Email.errors.required">
+                                Invalid Email ID
+                            </mat-error>
+                            <mat-error *ngIf="VendorForm.controls.txt_Email.errors.required">
+                                Email ID Required
+                            </mat-error>
+                        </div>
+                    </div>
+                    <div class="form-group col-12 col-md-6">
+                        <label class="labelmove">Website URL</label>
+                        <input placeholder="Website URL" class="form-control" formControlName="txt_Weburl">
+                        <div class="error-required"
+                            *ngIf="VendorForm.controls.txt_Weburl.touched && VendorForm.controls.txt_Weburl.errors">
+                            <mat-error *ngIf="VendorForm.controls.txt_Weburl.errors.required">
+                                Website URL Required
+                            </mat-error>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+</mat-sidenav-container>
